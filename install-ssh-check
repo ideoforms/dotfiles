@@ -1,0 +1,44 @@
+#!/bin/bash
+
+BIN=/usr/local/bin
+
+if crontab -l 2>/dev/null | grep -q ssh-check
+then
+	echo "Already found in crontab, not installing"
+	exit 1
+fi
+
+echo -n "Enter port number to listen on: "
+read PORT
+
+#--------------------------------------------------------------------------------
+# Turn on SSH
+#--------------------------------------------------------------------------------
+echo "Enabling SSH access..."
+sudo systemsetup -setremotelogin on
+
+#--------------------------------------------------------------------------------
+# Copy binary to /usr/local/bin
+#--------------------------------------------------------------------------------
+echo "Creating ssh-check script..."
+cat ../bin/ssh-check | sed "s/SSH_PORT=.*/SSH_PORT=$PORT/" > $BIN/ssh-check
+chmod +x $BIN/ssh-check
+
+#--------------------------------------------------------------------------------
+# Add to scheduler for persistent tunnel
+#--------------------------------------------------------------------------------
+echo "Installing crontab entry..."
+{ crontab -l 2>/dev/null; echo "* * * * * $BIN/ssh-check"; } | crontab -
+
+#--------------------------------------------------------------------------------
+# Generate SSH key
+#--------------------------------------------------------------------------------
+echo "Generating SSH key..."
+if [ ! -e ~/.ssh/id_rsa ]
+then
+	ssh-keygen -t rsa  -f ~/.ssh/id_rsa -P ""
+fi
+
+echo "Now add this to ~tunnel/.ssh/authorized_keys:"
+echo
+cat ~/.ssh/id_rsa.pub

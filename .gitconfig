@@ -1,0 +1,13 @@
+[ui]
+	color = true
+
+[user]
+	name = Daniel Jones
+	email = daniel@jones.org.uk
+
+[alias]
+	changes=diff --name-status
+[core]
+	excludesfile = /Users/daniel/.gitignore
+[push]
+	default = simple
