@@ -13,7 +13,7 @@ set viminfo='50
 set shiftwidth=4
 set tabstop=4
 set cindent
-set noexpandtab
+set expandtab
 
 " fold based on file type, but don't fold by default
 set foldmethod=syntax
