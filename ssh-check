@@ -1,0 +1,45 @@
+#!/bin/bash
+
+#----------------------------------------------------------------------
+# ssh-check
+#  - ensures that a reverse ssh tunnel continues to remain active.
+#    set SSH_HOST, SSH_USER and SSH_PORT before using, and remember
+#    to copy your public key to ~/.ssh/authorized_keys first.
+#
+# requires netcat (nc) for network connection verifier.
+# 
+# daniel jones <http://www.erase.net>
+#
+# crontab line:
+# * * * * * /usr/local/bin/ssh-check
+#----------------------------------------------------------------------
+
+SSH_HOST=95.154.202.5
+SSH_USER=tunnel
+SSH_PORT=4706
+SSH_COMMAND="ssh -qfNR *:$SSH_PORT:localhost:22 $SSH_USER@$SSH_HOST"
+
+function notrunning
+{
+    PATTERN=$1
+    RV=$(! ps auxw | grep $PATTERN | grep -v grep >/dev/null)
+
+    return $RV
+}
+
+if notrunning ssh.*:$SSH_PORT:.*$SSH_HOST
+then
+    # tunnel process has died; restart
+    syslog -s -l 2 "restarting ssh port forwarding"
+    $SSH_COMMAND
+elif ! nc -z $SSH_HOST $SSH_PORT >/dev/null
+then
+    # sometimes, the tunnel can die even though the process is still running...
+    # use nc to check whether we can still actually connect. failsafe.
+    SSH_PID=`ps auxw | grep [s]sh.*:$SSH_PORT:.*$SSH_HOST | awk '{print $2}'`
+    syslog -s -l 2 "restarting ssh port forwarding (zombie tunnel, PID $SSH_PID)"
+    kill $SSH_PID
+    sleep 1
+    $SSH_COMMAND
+fi
+

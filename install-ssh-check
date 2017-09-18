@@ -21,7 +21,7 @@ sudo systemsetup -setremotelogin on
 # Copy binary to /usr/local/bin
 #--------------------------------------------------------------------------------
 echo "Creating ssh-check script..."
-cat ../bin/ssh-check | sed "s/SSH_PORT=.*/SSH_PORT=$PORT/" > $BIN/ssh-check
+cat ssh-check | sed "s/SSH_PORT=.*/SSH_PORT=$PORT/" > $BIN/ssh-check
 chmod +x $BIN/ssh-check
 
 #--------------------------------------------------------------------------------
