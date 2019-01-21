@@ -6,8 +6,11 @@
 	email = daniel@jones.org.uk
 
 [alias]
-	changes=diff --name-status
+	clean-branches = "!git branch | grep -v master | grep -v develop | tr -d '*' | xargs git branch -d"
+	list-tags = "!git log --tags --simplify-by-decoration --pretty='format:%ai %d' | sort -r"
+
 [core]
 	excludesfile = /Users/daniel/.gitignore
+
 [push]
 	default = simple
