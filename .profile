@@ -6,3 +6,5 @@ export PYTHONPATH=.:$PYTHONPATH
 
 alias ls="ls -G"
 alias vi=vim
+
+[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
