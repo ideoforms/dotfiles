@@ -2,7 +2,7 @@
 
 #--------------------------------------------------------------------------------
 # General installation server setup scripts.
-# Jones/Bulley (2015)
+# Jones/Bulley (2015-2019)
 # jones-bulley.com
 #--------------------------------------------------------------------------------
 
@@ -10,10 +10,11 @@
 # Install dotfiles
 #--------------------------------------------------------------------------------
 echo "Copying dotfiles..."
-for DOTFILE in .[a-z]*
+for DOTFILE in .vimrc .profile .gitconfig .bash_sessions_disable .screenrc .pythonrc
 do
 	if [ ! -e ~/$DOTFILE ]
 	then
+        echo " - Installed $DOTFILE"
 		cp $DOTFILE ~
 	fi
 done
@@ -27,15 +28,18 @@ defaults -currentHost write com.apple.screensaver idleTime 0
 #--------------------------------------------------------------------------------
 # Turn off all sleep modes
 #--------------------------------------------------------------------------------
-pmset sleep 0
-pmset displaysleep 0
-pmset disksleep 0
+echo "Disabling sleep modes..."
+sudo pmset -a sleep 0 displaysleep 0 disksleep 0 powernap 0 gpuswitch 0
 
 #--------------------------------------------------------------------------------
 # Install Homebrew
 #--------------------------------------------------------------------------------
-echo "Setting up Homebrew..."
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+if ! which -s brew
+then
+    echo "Setting up Homebrew..."
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
 
 #--------------------------------------------------------------------------------
 # Install basic dependencies
@@ -45,5 +49,4 @@ brew install python
 brew install wget
 brew install autoconf
 brew install automake
-brew linkapps
-
+brew install git bash-completion
