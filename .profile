@@ -6,5 +6,6 @@ export PYTHONPATH=.:$PYTHONPATH
 
 alias ls="ls -G"
 alias vi=vim
+alias clear-derived-data="rm -r /Users/daniel/Library/Developer/Xcode/DerivedData"
 
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
