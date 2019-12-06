@@ -21,3 +21,19 @@ set nofoldenable
 
 " don't indent namespaces in c++
 set cino=N-s
+
+" ctrl-p fast-file finder
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+let g:ctrlp_cmd = 'CtrlPMRU'
+
+" split shortcuts: ctrl-J etc to move between splits
+nnoremap <C-H> <C-W>h
+nnoremap <C-J> <C-W>j
+nnoremap <C-K> <C-W>k
+nnoremap <C-L> <C-W>l
+
+" more natural split opening
+set splitbelow
+set splitright
+
+set colorcolumn=80
