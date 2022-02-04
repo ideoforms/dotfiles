@@ -9,4 +9,5 @@ alias ls="ls -G"
 alias vi=vim
 alias clear-derived-data="rm -r /Users/daniel/Library/Developer/Xcode/DerivedData"
 
-[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
+source "$(brew --prefix)/etc/bash_completion"
+eval "$(/opt/homebrew/bin/brew shellenv)"
