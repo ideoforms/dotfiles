@@ -46,5 +46,5 @@ fi
 #--------------------------------------------------------------------------------
 echo "Install basic Homebrew packages..."
 brew install python
-brew install git bash-completion
+brew install git bash bash-completion wget 
 brew install libsndfile libsoundio portaudio sox
