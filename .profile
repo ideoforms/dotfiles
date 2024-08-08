@@ -3,6 +3,7 @@ export PATH=/usr/local/bin:$PATH:$HOME/bin:$HOME/Dropbox/Code/bin
 export HISTSIZE=100000
 export PYTHONSTARTUP=~/.pythonrc
 export PYTHONPATH=.:$PYTHONPATH
+export EDITOR=vim
 
 alias ls="ls -G"
 alias vi=vim
