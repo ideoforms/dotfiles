@@ -35,5 +35,3 @@ nnoremap <C-L> <C-W>l
 " more natural split opening
 set splitbelow
 set splitright
-
-set colorcolumn=80

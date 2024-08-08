@@ -4,9 +4,11 @@ export HISTSIZE=100000
 export PYTHONSTARTUP=~/.pythonrc
 export PYTHONPATH=.:$PYTHONPATH
 export EDITOR=vim
+export PROMPT_COMMAND='history -a'
 
 alias ls="ls -G"
 alias vi=vim
 alias clear-derived-data="rm -r /Users/daniel/Library/Developer/Xcode/DerivedData"
 
-[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
+source /Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-prompt.sh
+eval "$(/opt/homebrew/bin/brew shellenv)"
