@@ -12,3 +12,7 @@ alias clear-derived-data="rm -r /Users/daniel/Library/Developer/Xcode/DerivedDat
 
 source /Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-prompt.sh
 eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Fix for annoying bash issue:
+# don't cache command locations; always search PATH
+set +h
